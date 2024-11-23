@@ -21,7 +21,7 @@ public class SplachScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplachScreen.this, Manifest.class);
+                Intent intent = new Intent(SplachScreen.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
