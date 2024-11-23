@@ -5,15 +5,153 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0f172a"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/titleHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/heading"
+        android:letterSpacing=".1"
+        android:text="Password Generator"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_27ssp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintMarginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/characterLengthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:fontFamily="@font/text"
+        android:text="Character Length"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintEnd_toEndOf="@+id/titleHeading"
+        app:layout_constraintMarginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/titleHeading"
+        app:layout_constraintTop_toBottomOf="@+id/titleHeading" />
+
+    <SeekBar
+        android:id="@+id/characterLengthSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:max="20"
+        android:progress="12"
+        android:progressTint="#1E88E5"
+        android:thumbTint="#1E88E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintMarginEnd="16dp"
+        app:layout_constraintMarginStart="16dp"
+        app:layout_constraintMarginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/characterLengthLabel" />
+
+    <TextView
+        android:id="@+id/characterLengthValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/text"
+        android:text="12"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintMarginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/characterLengthSeekBar" />
+
+    <!-- Radio Buttons -->
+    <RadioGroup
+        android:id="@+id/optionsGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintMarginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/characterLengthValue">
+
+        <RadioButton
+            android:id="@+id/includeUpperCase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include Upper Case"
+            android:fontFamily="@font/text"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/includeLowerCase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include Lower Case"
+            android:fontFamily="@font/text"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/includeNumbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/text"
+            android:textSize="@dimen/_14ssp"
+            android:text="Include Numbers"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/includeSymbols"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Include Symbols"
+            android:fontFamily="@font/text"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="#FFFFFF" />
+    </RadioGroup>
+
+    <!-- Generate Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/generateButton"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/button"
+        android:text="Generate Password"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="@dimen/_18ssp"
+        android:fontFamily="@font/text"
+        android:textAllCaps="false"
+        android:letterSpacing=".1"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintMarginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/optionsGroup" />
+
+    <!-- Generated Password Text -->
+    <TextView
+        android:id="@+id/generatedPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:fontFamily="@font/result"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintMarginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/generateButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
