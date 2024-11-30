@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979421848857",
+    "project_id": "passwordgenerator-9db36",
+    "storage_bucket": "passwordgenerator-9db36.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979421848857:android:47cde2a92c8747280a5188",
+        "android_client_info": {
+          "package_name": "com.example.passwordgemerator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqrsRsX6KU8DP_UBzVy05OgT6beEQFgy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
