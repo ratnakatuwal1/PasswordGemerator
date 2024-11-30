@@ -2,9 +2,11 @@ package com.example.passwordgemerator;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -12,10 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.passwordgemerator.Model.passwordModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.SecureRandom;
 
@@ -23,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
     // Declaring the UI Element
     SeekBar characterLengthSeekBar;
     TextView characterLengthValue, generatedPassword;
-    ;
-    Button generateButton, button;
+    EditText websiteNameInput, emailInput;
+    Button generateButton, button, viewPassword;
     RadioGroup optionsGroup;
     CheckBox includeUpperCase, includeLowerCase, includeNumbers, includeSymbols;
+private DatabaseReference databaseReference;
 
     //Defining the character sets
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz"; //lowercase letter
@@ -52,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         includeSymbols = findViewById(R.id.includeSymbols);
         generatedPassword = findViewById(R.id.generatedPassword);
         button = findViewById(R.id.button);
+        viewPassword = findViewById(R.id.viewPassword);
+        websiteNameInput = findViewById(R.id.websiteNameInput);
+        emailInput = findViewById(R.id.emailInput);
+        databaseReference = FirebaseDatabase.getInstance().getReference("ViewPassword");
 
         characterLengthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -77,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(v -> {
             copyPassword();
+        });
+
+        viewPassword.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, PasswordView.class));
         });
     }
 
@@ -144,6 +162,28 @@ public class MainActivity extends AppCompatActivity {
 
         String finalPassword = shufflePassword(password.toString());
         generatedPassword.setText(finalPassword);
+
+        savePasswordToFirebase(finalPassword);
+    }
+
+    private void savePasswordToFirebase(String Password) {
+        String websiteName = websiteNameInput.getText().toString().trim();
+        String email = emailInput.getText().toString().trim();
+        
+        if (websiteName.isEmpty() || email.isEmpty()){
+            Toast.makeText(this, "App name and email are requires", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        passwordModel model = new passwordModel(websiteName, email, Password);
+        databaseReference.push().setValue(model).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                Toast.makeText(this, "Password save successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to save password", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private String shufflePassword(String password) {
